@@ -1,0 +1,40 @@
+# ---- Python 编译产物 ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ---- 虚拟环境 ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- 打包 / 构建 ----
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---- 模型权重与训练输出 ----
+*.pth
+*.pth.tar
+*.pt
+*.ckpt
+save/
+logs/
+runs/
+outputs/
+
+# ---- 诊断输出 ----
+metrics_per_sample/
+metrics_per_view/
+
+# ----  notebooks ----
+.ipynb_checkpoints/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
