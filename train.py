@@ -85,8 +85,9 @@ def parse_args():
     parser.add_argument("--cuda_visible_devices", type=str, default="", help="optional CUDA_VISIBLE_DEVICES override")
     parser.add_argument("--upscale_factor", type=int, default=1, help="upscale factor")
     parser.add_argument('--model_name', type=str, default='GILF_ASR')
-
+    #训练集目录（要根据实际情况修改）
     parser.add_argument('--trainset_dir', type=str, default='/home/vision/work1/ywj/data/ASR_data/train/HCI/TrainData_HCI_2x2_9x9_64')
+   #测试集目录（要根据实际情况修改）
     parser.add_argument('--testset_dir', type=str, default='/home/vision/work1/ywj/data/ASR_data/test/HCI/test_2x2_sx1SR_7x7')
 
     parser.add_argument('--batch_size', type=int, default=1)
@@ -98,19 +99,21 @@ def parse_args():
     parser.add_argument('--grad_l1_ramp_epochs', type=int, default=20,
                         help='number of epochs used to linearly ramp Sobel gradient loss weight')
     parser.add_argument('--n_epochs', type=int, default=100, help='number of epochs to train')
+    #多少个epoch更新一次学习率
     parser.add_argument('--n_steps', type=int, default=15, help='number of epochs to update learning rate')
     parser.add_argument('--gamma', type=float, default=0.5, help='learning rate decaying factor')
 
     parser.add_argument("--patchsize", type=int, default=64, help="crop into patches for validation")
     parser.add_argument("--stride", type=int, default=32, help="stride for patch cropping")
-
+    #是否加载模型（没有模型时写False，已有模型写True）
     parser.add_argument('--load_pretrain', type=str2bool, default=True)
+    #训练完后模型的路径（要根据实际情况修改）
     parser.add_argument('--model_path', type=str, default='/home/vision/work1/ywj/traiplane/save/gs_checkpoint_ASR_R16_HCI_σ/GILF_ASR_1xSR_2x2_fixed7x7_epoch_42.pth.tar')
     parser.add_argument('--weights_only_pretrain', type=str2bool, default=False,
                         help='load all compatible model weights but never restore optimizer/scheduler state; '
                              'this is the default, pass false to resume optimizer and scheduler state')
-
-    parser.add_argument('--tag', type=str, default='ASR_R16_HCI_σ_test')##
+    #测试集的标签，每次训练一个模型时都要改变
+    parser.add_argument('--tag', type=str, default='ASR_R16_HCI_σ_test')
     parser.add_argument('--save_test_images', type=str2bool, default=True,
                         help='save generated LF image and GT during validation')
     parser.add_argument('--save_test_image_limit', type=int, default=-1,
@@ -254,7 +257,7 @@ def train(cfg, train_loader, test_Names, test_loaders):
     grad_lambda_epoch = []
     volume_ratio_epoch = []
     loss_list = []
-
+    #验证集（在训练模型前要注释掉这一段）
     with torch.no_grad():
         psnr_testset = []
         ssim_testset = []
