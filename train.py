@@ -5,7 +5,7 @@ import os
 import csv
 import shutil
 import math
-
+# hahahaha
 os.environ["CUDA_VISIBLE_DEVICES"] = '3'
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:128'
 HALVE_RESUME_LR = False
